@@ -10,12 +10,17 @@ import HeadingPitchRoll from "cesium/Source/Core/HeadingPitchRoll";
 import IonResource from "cesium/Source/Core/IonResource";
 import Matrix4 from "cesium/Source/Core/Matrix4";
 
+
+
 class FHouse extends Component{
 componentDidMount() {
 
-const viewer = new Viewer('cesiumContainer', {
+
+
+
+var viewer = new Viewer('cesiumContainer', {
     terrainProvider: createWorldTerrain(),
-    animation: false,
+      animation: false,
     baseLayerPicker: false,
     timeline: false,
     navigationHelpButton: false
@@ -24,8 +29,8 @@ const viewer = new Viewer('cesiumContainer', {
 viewer.scene.globe.depthTestAgainstTerrain = true;
 
 // Set the initial camera view to look at Manhattan
-const initialPosition = Cartesian3.fromDegrees(-74.01881302800248, 40.69114333714821, 753);
-const initialOrientation = new HeadingPitchRoll.fromDegrees(21.27879878293835, -21.34390550872461, 0.0716951918898415);
+var initialPosition =Cartesian3.fromDegrees(-74.01881302800248, 40.69114333714821, 753);
+var initialOrientation = new HeadingPitchRoll.fromDegrees(21.27879878293835, -21.34390550872461, 0.0716951918898415);
 viewer.scene.camera.setView({
     destination: initialPosition,
     orientation: initialOrientation,
@@ -33,41 +38,13 @@ viewer.scene.camera.setView({
 });
 
 // Load the NYC buildings tileset.
-const tileset = new Cesium3DTileset({ url: IonResource.fromAssetId(4693) });
+var tileset = new Cesium3DTileset({ url: IonResource.fromAssetId(5741) });
 viewer.scene.primitives.add(tileset);
 
 const tips = document.getElementById('tips');
-// Color buildings based on their height.单位：米
-function colorByHeight() {
-    tileset.style = new Cesium3DTileStyle({
-        color: {
-            conditions: [
-                ["${height} >= 300", "rgba(45, 0, 75, 0.5)"],
-                ["${height} >= 200", "rgb(102, 71, 151)"],
-                ["${height} >= 100", "rgb(170, 162, 204)"],
-                ["${height} >= 50", "rgb(224, 226, 238)"],
-                ["${height} >= 25", "rgb(252, 230, 200)"],
-                ["${height} >= 10", "rgb(248, 176, 87)"],
-                ["${height} >= 5", "rgb(198, 106, 11)"],
-                ["true", "rgb(127, 59, 8)"]
-            ]
-        }
-    });
-    tips.innerHTML = `<ul>
-        <li><span style='background:rgba(45, 0, 75, 0.5)'></span>&gt;=300</li>
-        <li><span style='background:rgb(102, 71, 151)'></span>&gt;=200</li>
-        <li><span style='background:rgb(170, 162, 204)'></span>&gt;=100</li>
-        <li><span style='background:rgb(224, 226, 238)'></span>&gt;=50</li>
-        <li><span style='background:rgb(252, 230, 200)'></span>&gt;=25</li>
-        <li><span style='background:rgb(248, 176, 87)'></span>&gt;=10</li>
-        <li><span style='background:rgb(198, 106, 11)'></span>&gt;=5</li>
-        <li><span style='background:rgb(127, 59, 8)'></span>&lt;5</li>
-    </ul>`
-}
-
-// Color buildings by their latitude coordinate.
+// Color buildings based on their height.
 function colorByLatitude() {
-    tileset.style = new Cesium3DTileStyle({
+    tileset.style = new Cesium.Cesium3DTileStyle({
         defines: {
             latitudeRadians: "radians(${latitude})"
         },
@@ -99,7 +76,7 @@ function colorByLatitude() {
 
 // Color buildings by distance from a landmark.
 function colorByDistance() {
-    tileset.style = new Cesium3DTileStyle({
+    tileset.style = new Cesium.Cesium3DTileStyle({
         defines : {
             distance : "distance(vec2(radians(${longitude}), radians(${latitude})), vec2(-1.291777521, 0.7105706624))"
         },
