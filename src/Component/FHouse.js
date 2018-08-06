@@ -43,10 +43,39 @@ viewer.scene.primitives.add(tileset);
 
 const tips = document.getElementById('tips');
 // Color buildings based on their height.
+function colorByHeight() {
+    tileset.style = new Cesium3DTileStyle({
+        color: {
+            conditions: [
+                ["${height} >= 300", "rgba(45, 0, 75, 0.5)"],
+                ["${height} >= 200", "rgb(102, 71, 151)"],
+                ["${height} >= 100", "rgb(170, 162, 204)"],
+                ["${height} >= 50", "rgb(224, 226, 238)"],
+                ["${height} >= 25", "rgb(252, 230, 200)"],
+                ["${height} >= 10", "rgb(248, 176, 87)"],
+                ["${height} >= 5", "rgb(198, 106, 11)"],
+                ["true", "rgb(127, 59, 8)"]
+            ]
+        }
+    });
+
+    tips.innerHTML = `<ul>
+        <li><span style='background:rgba(45, 0, 75, 0.5)'></span>&gt;=300</li>
+        <li><span style='background:rgb(102, 71, 151)'></span>&gt;=200</li>
+        <li><span style='background:rgb(170, 162, 204)'></span>&gt;=100</li>
+        <li><span style='background:rgb(224, 226, 238)'></span>&gt;=50</li>
+        <li><span style='background:rgb(252, 230, 200)'></span>&gt;=25</li>
+        <li><span style='background:rgb(248, 176, 87)'></span>&gt;=10</li>
+        <li><span style='background:rgb(198, 106, 11)'></span>&gt;=5</li>
+        <li><span style='background:rgb(127, 59, 8)'></span>&lt;5</li>
+    </ul>`
+}
+
+// Color buildings by their latitude coordinate.
 function colorByLatitude() {
-    tileset.style = new Cesium.Cesium3DTileStyle({
+    tileset.style = new Cesium3DTileStyle({
         defines: {
-            latitudeRadians: "radians(${latitude})"
+            latitudeRadians: 'radians(tileset.properties.latitude)'
         },
         color: {
             conditions: [
@@ -58,11 +87,9 @@ function colorByLatitude() {
                 ["${latitudeRadians} >= 0.710", "color('cyan')"],
                 ["true", "color('blue')"]
             ]
-        },
-        meta : {
-            description : '"Building id ${id} has height ${Height}."'
         }
     });
+
     tips.innerHTML = `<ul>
             <li><span style='background:purple'></span>&gt;=0.7125</li>
             <li><span style='background:red'></span>&gt;=0.712</li>
@@ -76,13 +103,13 @@ function colorByLatitude() {
 
 // Color buildings by distance from a landmark.
 function colorByDistance() {
-    tileset.style = new Cesium.Cesium3DTileStyle({
+    tileset.style = new Cesium3DTileStyle({
         defines : {
-            distance : "distance(vec2(radians(${longitude}), radians(${latitude})), vec2(-1.291777521, 0.7105706624))"
+            distance : 'distance(vec2(radians(tileset.properties.longitude), radians(tileset.properties.latitude)), vec2(-1.291777521, 0.7105706624))'
         },
         color : {
             conditions : [
-                ["${distance} > 0.0012","color('gray')"],
+               ["${distance} > 0.0012","color('gray')"],
                 ["${distance} > 0.0008", "mix(color('yellow'), color('red'), (${distance} - 0.008) / 0.0004)"],
                 ["${distance} > 0.0004", "mix(color('green'), color('yellow'), (${distance} - 0.0004) / 0.0004)"],
                 ["${distance} < 0.00001", "color('white')"],
@@ -111,6 +138,7 @@ toolbar.onchange = function(){
     }
 
 }
+
 colorByHeight();
 
 }
