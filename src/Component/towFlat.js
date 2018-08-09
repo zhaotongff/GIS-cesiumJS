@@ -55,7 +55,7 @@ class twoFlat extends Component{
             }
         }, ScreenSpaceEventType.LEFT_DOWN);
 
-// 释放鼠标所做的工作
+// 鼠标选中模型改变大小和颜色
         var upHandler = new ScreenSpaceEventHandler(viewer.scene.canvas);
         upHandler.setInputAction(function() {
             if (defined(selectedPlane)) {
@@ -66,7 +66,7 @@ class twoFlat extends Component{
 
             scene.screenSpaceCameraController.enableInputs = true;
         }, ScreenSpaceEventType.LEFT_UP);
-//移动鼠标工作
+//移动鼠标，将鼠标所在的屏幕坐标转成世界坐标
         var moveHandler = new ScreenSpaceEventHandler(viewer.scene.canvas);
         moveHandler.setInputAction(function(movement) {
             if (defined(selectedPlane)) {
@@ -182,8 +182,7 @@ class twoFlat extends Component{
         var pointCloudUrl = IonResource.fromAssetId(3838);
         var instancedUrl = IonResource.fromAssetId(3876);
         var modelUrl = '../cesium/Apps/SampleData/models/CesiumAir/Cesium_Air.glb';
-
-        loadTileset(bimUrl);
+      
 
 // Track and create the bindings for the view model
         var toolbar = document.getElementById('toolbar');

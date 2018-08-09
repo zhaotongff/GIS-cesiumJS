@@ -226,7 +226,11 @@ function movePerson(isUP) {
 let billboards = scene.primitives.add(new BillboardCollection());
 billboards.add({
   position : Cartesian3.fromDegrees(120.434662,31.361690,0),
-  image : '../Apps/images/name.PNG'
+  image : '../Apps/images/name.PNG',
+  
+ 
+
+
 });
 
 }

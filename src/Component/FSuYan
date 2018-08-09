@@ -6,19 +6,30 @@ import Cesium3DTileset from "cesium/Source/Scene/Cesium3DTileset";
 import IonResource from "cesium/Source/Core/IonResource";
 
 
-class FGlobal extends Component{
+class FSuYan extends Component{
 	componentDidMount() { 	
 
+	   var viewer = new Viewer('cesiumContainer', {
+        infoBox: false,//    是否显示点击要素之后显示的信息
+       selectionIndicator: false
+        });
+        var scene = viewer.scene;
+
+var entity = viewer.entities.add({ 
+    position : Cesium.Cartesian3.fromDegrees(-123.0744619, 44.0503706), 
+    model : { uri : '../cesium/Apps/SampleData/models/CesiumAir/Cesium_Air.glb' }
+});
+viewer.trackedEntity = entity; 
 
 	}
 
 	render(){
 		return(
 			<div>
-				<div id="cesiumContainer" ref={ element => this.cesiumContainer = element }/>
+				<div id="cesiumContainer" />
 			</div>
 		)
 	}
 }
 
-export default FGlobal
+export default FSuYan

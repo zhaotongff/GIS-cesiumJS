@@ -15,6 +15,7 @@ import FAir from './Component/FAir.js'
 import Flonglat from './Component/Flonglat.js'
 import towFlat from './Component/towFlat.js'
 import FModel from './Component/FModel'
+import FSuYan from './Component/FSuYan.js'
 /**** 其他里面的组件 ****/
 import Others1 from './Component/Others1'
 import Others2 from './Component/Others2'
@@ -84,11 +85,11 @@ class SAP extends Component {
                     <li className="a"><Link to='/func/thermo'>热力图</Link></li>
                     <li className="a"><Link to='/func/global'>3D球型图</Link></li>
                      <li className="a"><Link to='/func/model'>3D模型</Link></li>
-                      <li className="a"  ><Link to='/func/towFlat'>平面缓存</Link></li>
+                      <li className="a"  ><Link to='/func/towFlat'>定位缓存</Link></li>
                      <li className="a"><Link to='/func/Flonglat'>经纬度显示</Link></li>
                     <li className="a"><Link to='/func/traj'>人员轨迹的控制</Link></li>
                     <li className="a"><Link to='/func/air'>飞机轨迹的还原</Link></li>        
-                    
+                     <li className="a"><Link to='/func/FSuYan'>苏研</Link></li>   
 
 
 
@@ -109,12 +110,14 @@ class SAP extends Component {
               <Route exact path="/func/" component={FHouse} />
               <Route path='/func/thermo' component={FThermo} />
               <Route path='/func/global' component={FGlobal} />
-                     <Route path='/func/model' component={FModel} />
+             <Route path='/func/model' component={FModel} />
               <Route path='/func/Flonglat' component={Flonglat} />
               <Route path='/func/traj' component={FTraj} />
               <Route path='/func/air' component={FAir} />
               
                <Route path='/func/towFlat' component={towFlat} />
+                <Route path='/func/FSuYan' component={FSuYan} />
+
               <Route exact path='/others/' component={Others1} />
               <Route path='/others/others2' component={Others2} />
             </div>            

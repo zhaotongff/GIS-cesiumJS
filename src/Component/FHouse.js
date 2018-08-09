@@ -47,6 +47,7 @@ function colorByHeight() {
     tileset.style = new Cesium3DTileStyle({
         color: {
             conditions: [
+            
                 ["${height} >= 300", "rgba(45, 0, 75, 0.5)"],
                 ["${height} >= 200", "rgb(102, 71, 151)"],
                 ["${height} >= 100", "rgb(170, 162, 204)"],
@@ -75,7 +76,7 @@ function colorByHeight() {
 function colorByLatitude() {
     tileset.style = new Cesium3DTileStyle({
         defines: {
-            latitudeRadians: 'radians(tileset.properties.latitude)'
+            latitudeRadians: "radians(${latitude})"
         },
         color: {
             conditions: [
@@ -105,11 +106,11 @@ function colorByLatitude() {
 function colorByDistance() {
     tileset.style = new Cesium3DTileStyle({
         defines : {
-            distance : 'distance(vec2(radians(tileset.properties.longitude), radians(tileset.properties.latitude)), vec2(-1.291777521, 0.7105706624))'
+            distance : "distance(vec2(radians(${longitude}), radians(${latitude})), vec2(-1.291777521, 0.7105706624))"
         },
         color : {
             conditions : [
-               ["${distance} > 0.0012","color('gray')"],
+                ["${distance} > 0.0012","color('gray')"],
                 ["${distance} > 0.0008", "mix(color('yellow'), color('red'), (${distance} - 0.008) / 0.0004)"],
                 ["${distance} > 0.0004", "mix(color('green'), color('yellow'), (${distance} - 0.0004) / 0.0004)"],
                 ["${distance} < 0.00001", "color('white')"],
